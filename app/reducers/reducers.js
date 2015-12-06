@@ -1,33 +1,30 @@
-import { DRAG_RIGHT1, DRAG_LEFT1, DRAG_RIGHT2, DRAG_LEFT2 } from '../actions/actions'
+import * as types from '../constants/constants'
 
 const initialState = {
 	table: {
 		headings: [
 			{
-				name: 'Column 1',
-				colNumber: 1
+				name: 'Column 1'
 			},
 			{
-				name: 'Column 2',
-				colNumber: 2
+				name: 'Column 2'
 			},
 			{
-				name: 'Column 3',
-				colNumber: 3
+				name: 'Column 3'
 			}
 		],
 		rows: [
 			{
 				name: '15',
-				colNumber: 1
+				column: 'Column 1'
 			},
 			{
 				name: '25',
-				colNumber: 2
+				column: 'Column 2'
 			},
 			{
 				name: '35',
-				colNumber: 3
+				column: 'Column 3'
 			}
 		]
 	}
@@ -35,15 +32,33 @@ const initialState = {
 
 export default function drag(state = initialState, action) {
 	switch (action.type) {
-		case DRAG_RIGHT1:
-			return [...state.splice(action.colNumber, 1)]
-		case DRAG_LEFT1:
-			return [...state.splice(action.colNumber, 1)]
-		case DRAG_RIGHT2:
-			return [...state.splice(action.colNumber, 2)]
-		case DRAG_LEFT2:
-			return [...state.splice(action.colNumber, 2)]
+		case types.DRAG:
+			return reOrderCols(state, action.draggedCol, action.targetCol)
 		default:
 			return state
 	}
+}
+
+const reOrderCols = (state, draggedCol, targetCol) => {
+	let colOrder = state.table.headings.map((heading) => heading.name)
+	let columns = state.table.headings.slice()
+	let draggedColIndex = colOrder.indexOf(draggedCol.name)
+	let targetColIndex = colOrder.indexOf(targetCol.name)
+
+	columns.splice(draggedColIndex, 1)
+	columns.splice(targetColIndex, 0, draggedCol)
+
+	let rowOrder = columns.map((col) => {
+		let findSpot = state.table.rows.filter((row) => {
+			if (col.name === row.column) return row
+		})
+		return findSpot[0]
+	})
+	let newState = {
+		table: {
+			headings: columns,
+			rows: rowOrder
+		}
+	}
+	return newState
 }
