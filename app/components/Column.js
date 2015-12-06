@@ -1,7 +1,7 @@
 import React, { Component as C} from 'react'
 import ReactDOM from 'react-dom'
 import { DragSource, DropTarget } from 'react-dnd'
-import { flow } from 'lodash'
+import { pipe } from 'ramda'
 
 const headingSource = {
 	beginDrag(props) {
@@ -50,4 +50,4 @@ class Column extends C {
 	}
 }
 
-export default flow(DragSource('column', headingSource, collect), DropTarget('column', headingTarget, collectDrop))(Column)
+export default pipe(DragSource('column', headingSource, collect), DropTarget('column', headingTarget, collectDrop))(Column)

@@ -49,10 +49,9 @@ const reOrderCols = (state, draggedCol, targetCol) => {
 	columns.splice(targetColIndex, 0, draggedCol)
 
 	let rowOrder = columns.map((col) => {
-		let findSpot = state.table.rows.filter((row) => {
+		return state.table.rows.filter((row) => {
 			if (col.name === row.column) return row
-		})
-		return findSpot[0]
+		})[0]
 	})
 	let newState = {
 		table: {
