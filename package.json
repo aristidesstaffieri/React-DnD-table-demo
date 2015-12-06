@@ -1,0 +1,57 @@
+{
+  "name": "react-table",
+  "version": "1.0.0",
+  "description": "A react flexible table demo.",
+  "config": {
+    "buildDir": "./build",
+    "buildDirTests": "./build_tests",
+    "devHost": "localhost",
+    "devPort": 8000
+  },
+  "scripts": {
+    "build": "NODE_ENV=production npm run webpack",
+    "clean": "rimraf $npm_package_config_buildDir && mkdir $npm_package_config_buildDir",
+    "env": "env",
+    "prebuild": "npm run clean",
+    "prestart": "npm install",
+    "start": "NODE_ENV=development node dev-server ./webpack/config",
+    "webpack": "webpack --colors --progress --config ./webpack/config"
+  },
+  "keywords": [
+    "React",
+    "JS"
+  ],
+  "author": "Aristides Staffieri",
+  "license": "ISC",
+  "dependencies": {
+    "css-loader": "^0.23.0",
+    "lodash": "^3.10.0",
+    "normalize.css": "^3.0.3",
+    "react": "^0.14.3",
+    "react-dnd": "^2.0.2",
+    "react-dnd-html5-backend": "^2.0.0",
+    "react-dom": "^0.14.3",
+    "react-redux": "^4.0.0",
+    "redux": "^3.0.4"
+  },
+  "devDependencies": {
+		"redux-devtools": "^2.1.5",
+    "sass-loader": "^1.0.2",
+    "postcss-loader": "^0.8.0",
+    "file-loader": "^0.8.4",
+    "extract-text-webpack-plugin": "^0.9.1",
+    "opn": "^3.0.2",
+    "autoprefixer-core": "^6.0.1",
+    "babel-core": "^5.8.3",
+    "babel-loader": "^5.3.1",
+    "babel-plugin-rewire": "^0.1.8",
+    "babel-runtime": "^5.6.15",
+    "react-hot-loader": "^1.2.8",
+    "rimraf": "^2.4.1",
+    "source-map-support": "^0.3.2",
+    "style-loader": "^0.13.0",
+    "template-html-loader": "0.0.3",
+    "webpack": "^1.10.1",
+    "webpack-dev-server": "^1.10.1"
+  }
+}
