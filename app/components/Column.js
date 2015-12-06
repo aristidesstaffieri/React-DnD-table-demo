@@ -15,7 +15,7 @@ const headingTarget = {
 	drop(props, monitor, component) {
 		let draggedCol = monitor.getItem()
 		let targetCol = component.decoratedComponentInstance.props.column
-		// trigger drag actions
+		// trigger drag action
 		props.dragRight1(draggedCol, targetCol)
 	}
 }
@@ -42,11 +42,20 @@ class Column extends C {
 
 	render() {
 		const { column, connectDropTarget, connectDragSource, isOver, isDragging } = this.props
-		return connectDropTarget(connectDragSource(
-			<th>
-				{column.name}
+		return (
+			<th style={{
+					opacity: isOver ? 0.5 : 1,
+					backgroundColor: isOver ? 'yellow' : 'inherit'
+				}}>
+				{
+					connectDropTarget(connectDragSource(
+						<div>
+							{column.name}
+						</div>
+					))
+				}
 			</th>
-		))
+		)
 	}
 }
 
