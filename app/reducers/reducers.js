@@ -53,11 +53,6 @@ const reOrderCols = (state, draggedCol, targetCol) => {
 			if (col.name === row.column) return row
 		})[0]
 	})
-	let newState = {
-		table: {
-			headings: columns,
-			rows: rowOrder
-		}
-	}
-	return newState
+
+	return { table: { headings: columns, rows: rowOrder } }
 }

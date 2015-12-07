@@ -10,7 +10,7 @@ import { DevTools, DebugPanel, LogMonitor } from 'redux-devtools/lib/react'
 import reducer from './reducers/reducers'
 
 
-import React, { Component as C } from 'react'
+import React from 'react'
 import ReactDOM from 'react-dom'
 
 const finalCreateStore = compose(
@@ -21,21 +21,17 @@ const finalCreateStore = compose(
 
 let store = finalCreateStore(reducer)
 
-class App extends C {
-  render() {
-    return (
-      <div>
-				<Provider store={store}>
-					<Table />
-        </Provider>
-        <DebugPanel top right bottom>
-          <DevTools store={store}
-                    monitor={LogMonitor}
-                    visibleOnLoad={true} />
-        </DebugPanel>
-      </div>
-    );
-  }
-}
+const App = () => (
+	<div>
+		<Provider store={store}>
+			<Table />
+		</Provider>
+		<DebugPanel top right bottom>
+			<DevTools store={store}
+								monitor={LogMonitor}
+								visibleOnLoad={true} />
+		</DebugPanel>
+	</div>
+)
 
 ReactDOM.render(<App />, document.getElementById('app'))
