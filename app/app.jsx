@@ -1,20 +1,27 @@
 import './index.html'
-import 'babel-core/polyfill'
+import 'babel-polyfill'
 import 'normalize.css/normalize.css'
 import './scss/app.scss'
 import Table from './containers/Table'
 import { createStore, compose } from 'redux'
 import { Provider } from 'react-redux'
-import { devTools, persistState } from 'redux-devtools'
-import { DevTools, DebugPanel, LogMonitor } from 'redux-devtools/lib/react'
+import { persistState, createDevTools } from 'redux-devtools'
+import LogMonitor from 'redux-devtools-log-monitor'
+import DockMonitor from 'redux-devtools-dock-monitor'
 import reducer from './reducers/reducers'
-
 
 import React from 'react'
 import ReactDOM from 'react-dom'
 
+const DevTools = createDevTools(
+  <DockMonitor toggleVisibilityKey='ctrl-h'
+               changePositionKey='ctrl-q'>
+    <LogMonitor theme='tomorrow' />
+  </DockMonitor>
+)
+
 const finalCreateStore = compose(
-  devTools(),
+  DevTools.instrument(),
   persistState(window.location.href.match(/[?&]debug_session=([^&]+)\b/))
 )(createStore)
 
@@ -24,13 +31,11 @@ let store = finalCreateStore(reducer)
 const App = () => (
 	<div>
 		<Provider store={store}>
-			<Table />
+      <div>
+        <Table />
+        <DevTools />
+      </div>
 		</Provider>
-		<DebugPanel top right bottom>
-			<DevTools store={store}
-								monitor={LogMonitor}
-								visibleOnLoad={true} />
-		</DebugPanel>
 	</div>
 )
 

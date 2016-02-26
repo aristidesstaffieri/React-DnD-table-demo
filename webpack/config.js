@@ -1,6 +1,6 @@
 var path = require('path');
 var util = require('util');
-var autoprefixer = require('autoprefixer-core');
+var autoprefixer = require('autoprefixer');
 var pkg = require('../package.json');
 
 var loaders = require('./loaders');
@@ -46,6 +46,7 @@ var config = {
     autoprefixer
   ],
   plugins: plugins,
+  presets: ['es2015', 'stage-2'],
   resolve: {
     extensions: ['', '.js', '.json', '.jsx']
   },
